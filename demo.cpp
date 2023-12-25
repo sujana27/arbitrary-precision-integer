@@ -14,6 +14,7 @@ int main()
         BigInteger bg1("2");
         BigInteger bg2(-52);
         BigInteger bg3 = bg1 + bg2;
+        cout << bg1 << "\n";
         cout << bg3 << "\n";
 
         // big int vs - int
@@ -40,6 +41,40 @@ int main()
             cout << bg1 << " is bigger than " << bg2 << "\n";
         if (bg1 > bg2)
             cout << bg2 << " is smaller than " << bg1 << "\n";
+
+        if (bg1 >= bg2)
+            cout << bg1 << " is greater or equal than " << bg2 << "\n";
+
+        if (bg2 <= bg1)
+            cout << bg2 << " is smaller or equal than " << bg1 << "\n";
+        if (bg2 <= bg5)
+            cout << bg2 << " is smaller or equal than " << bg5 << "\n";
+
+        BigInteger a("-11");
+        BigInteger b(22);
+        BigInteger c = a - b;
+
+        cout << a - b << "\n";
+        cout << c << "\n";
+        a -= b;
+        cout << a << "\n";
+        cout << -a << "\n";
+        cout << a << "\n";
+        a += a;
+        cout << a << "\n";
+        BigInteger b2(-22);
+        BigInteger b3(-22);
+        b2 = -b2;
+        BigInteger d = b2 * b3;
+        cout << d << endl;
+        // cout << b2 << endl;
+        b2 *= b3;
+        cout << b2 << endl;
+
+        BigInteger b34;
+
+        BigInteger b02 = b2 + b34;
+        cout << b02 << endl;
 
         // BigInteger bg6 = bg5 + bg3;
 

@@ -1,7 +1,9 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -28,14 +30,22 @@ public:
     // bool isSmaller(const BigInteger &, const BigInteger &);
 
     BigInteger operator+(const BigInteger &);
+    BigInteger operator-(BigInteger);
+    BigInteger operator-(); // unary
+    BigInteger operator*(const BigInteger &);
     bool operator>(const BigInteger &);
     bool operator<(const BigInteger &);
 
     bool operator==(const BigInteger &);
     bool operator!=(const BigInteger &);
+    bool operator>=(const BigInteger &);
+    bool operator<=(const BigInteger &);
 
     BigInteger &operator+=(const BigInteger &b);
+    BigInteger &operator-=(const BigInteger &b);
+    BigInteger &operator*=(const BigInteger &b);
     friend ostream &operator<<(ostream &, const BigInteger &);
+
     // Exception to be thrown if trying to access an element out of range.
     inline static invalid_argument not_a_number = invalid_argument("Not a number!");
 
@@ -145,6 +155,63 @@ BigInteger &BigInteger::operator+=(const BigInteger &b)
     return (*this);
 }
 
+BigInteger BigInteger::operator-() // unary
+{
+    // return (*this) * (-1);
+
+    BigInteger negation;
+    negation.number = getNumber();
+    negation.sign = !getSign();
+    return negation;
+}
+
+BigInteger BigInteger::operator-(BigInteger b)
+{
+    b.sign = !(b.getSign());
+    return (*this) + b;
+}
+
+BigInteger BigInteger::operator*(const BigInteger &b)
+{
+    BigInteger product;
+    string multiplicand = getNumber(), multiplier = b.getNumber();
+    product.sign = getSign() ^ b.getSign();
+    int64_t n = multiplicand.size(), m = multiplier.size();
+
+    string res(n + m, '0');
+    for (int iidx = n - 1; iidx >= 0; iidx--)
+    {
+        for (int jidx = m - 1; jidx >= 0; jidx--)
+        {
+            int tsum = (res[1 + iidx + jidx] - '0') + (multiplicand[iidx] - '0') * (multiplier[jidx] - '0');
+            res[iidx + jidx] += tsum / 10;
+            res[1 + iidx + jidx] = tsum % 10 + '0';
+        }
+    }
+    // if leading zero ignore them
+    for (int idx = 0; idx < m + n; idx++)
+    {
+        if (res[idx] != '0')
+        {
+            product.setNumber(res.substr(idx));
+            return product;
+        }
+    }
+    product.setNumber(res);
+    return product;
+}
+BigInteger &BigInteger::operator*=(const BigInteger &b)
+{
+    (*this) = (*this) * b;
+    return (*this);
+}
+
+BigInteger &BigInteger::operator-=(const BigInteger &b)
+{
+    (*this) = (*this) - b;
+    return (*this);
+}
+
 void BigInteger::operator=(const BigInteger &b)
 {
     setNumber(b.getNumber());
@@ -198,7 +265,7 @@ bool BigInteger::operator<(const BigInteger &b)
             return true;
         if (getNumber().length() < b.getNumber().length())
             return false;
-        return getNumber().compare(b.getNumber()) > 0; // greater with -ve sign is LESS
+        return getNumber().compare(b.getNumber()) > 0;
     }
 }
 
@@ -206,6 +273,20 @@ bool BigInteger::operator>(const BigInteger &b)
 {
 
     if (!((*this) == b) && !((*this) < b))
+        return true;
+    return false;
+}
+
+bool BigInteger::operator>=(const BigInteger &b)
+{
+    if (((*this) > b) || ((*this) == b))
+        return true;
+    return false;
+}
+
+bool BigInteger::operator<=(const BigInteger &b)
+{
+    if (((*this) < b) || ((*this) == b))
         return true;
     return false;
 }
@@ -319,7 +400,8 @@ string BigInteger::makeSub(string x, string y)
         sub[i] = ((x[i] - '0') - (y[i] - '0')) + '0';
     }
 
-    while (sub[0] == '0' && sub.length() != 1) // erase leading zeros
+    // erase leading zeros
+    while (sub[0] == '0' && sub.length() != 1)
         sub.erase(0, 1);
 
     return sub;
