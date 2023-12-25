@@ -12,6 +12,7 @@ int main()
         // + operator test cases
         // big int vs + int
         BigInteger bg1("2");
+        BigInteger bg1e("2");
         BigInteger bg2(-52);
         BigInteger bg3 = bg1 + bg2;
         cout << bg1 << "\n";

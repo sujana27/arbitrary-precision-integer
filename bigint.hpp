@@ -66,47 +66,58 @@ BigInteger::BigInteger()
 // string constructor
 BigInteger::BigInteger(const string &s)
 {
-    if (isdigit(s[0]))
-    {
-        setNumber(s);
-        sign = false;
-    }
-    else
-    {
-        setNumber(s.substr(1));
-        sign = true;
-    }
+    // if (isdigit(s[0]))
+    // {
+    //     setNumber(s);
+    //     sign = false;
+    // }
+    // else
+    // {
+    //     setNumber(s.substr(1));
+    //     sign = true;
+    // }
+    setNumber(s);
 }
 // signed int constructor
-BigInteger::BigInteger(const int64_t &n)
+BigInteger::BigInteger(const int64_t &num)
 {
-    stringstream ss;
-    string s;
-    ss << n;
-    ss >> s;
+    stringstream sStream;
+    string sNum;
+    sStream << num;
+    sStream >> sNum;
 
-    if (isdigit(s[0]))
-    {
-        setNumber(s);
-        sign = false;
-    }
-    else
-    {
-        setNumber(s.substr(1));
-        sign = true;
-    }
+    setNumber(sNum);
+
+    // if (isdigit(sNum[0]))
+    // {
+    //     setNumber(sNum);
+    //     sign = false;
+    // }
+    // else
+    // {
+    //     setNumber(sNum.substr(1));
+    //     sign = true;
+    // }
 }
 
 void BigInteger::setNumber(const string &s)
 {
-    for (int64_t i = 0; i < s.size(); i--)
+
+    for (uint64_t i = 0; i < s.size(); i++)
     {
-        if (s[0] == '-')
-            continue;
-        if (!isdigit(s[i]))
+        if ((i == 0 && s[i] != '-' && !isdigit(s[i])) || (i != 0 && !isdigit(s[i])))
             throw not_a_number;
     }
-    number = s;
+    if (isdigit(s[0]))
+    {
+        number = s;
+        sign = false;
+    }
+    else
+    {
+        number = s.substr(1);
+        sign = true;
+    }
 }
 
 string BigInteger::getNumber() const
@@ -179,9 +190,9 @@ BigInteger BigInteger::operator*(const BigInteger &b)
     int64_t n = multiplicand.size(), m = multiplier.size();
 
     string res(n + m, '0');
-    for (int iidx = n - 1; iidx >= 0; iidx--)
+    for (int64_t iidx = n - 1; iidx >= 0; iidx--)
     {
-        for (int jidx = m - 1; jidx >= 0; jidx--)
+        for (int64_t jidx = m - 1; jidx >= 0; jidx--)
         {
             int tsum = (res[1 + iidx + jidx] - '0') + (multiplicand[iidx] - '0') * (multiplier[jidx] - '0');
             res[iidx + jidx] += tsum / 10;
@@ -189,7 +200,7 @@ BigInteger BigInteger::operator*(const BigInteger &b)
         }
     }
     // if leading zero ignore them
-    for (int idx = 0; idx < m + n; idx++)
+    for (int64_t idx = 0; idx < m + n; idx++)
     {
         if (res[idx] != '0')
         {
@@ -222,13 +233,13 @@ ostream &operator<<(ostream &out, const BigInteger &a)
 {
     if (a.getSign())
     {
-        cout << "-" << a.getNumber();
+        out << "-" << a.getNumber();
         return cout;
     }
     else
     {
-        cout << a.getNumber();
-        return cout;
+        out << a.getNumber();
+        return out;
     }
 }
 
@@ -356,10 +367,10 @@ string BigInteger::makeSum(string x, string y)
     }
 
     string result = "";
-    int sum, carry = 0;
-    for (int i = x.length() - 1; i >= 0; i--)
+    int64_t sum, carry = 0;
+    for (int64_t i = x.length() - 1; i >= 0; i--)
     {
-        sum = (int)x[i] - '0' + (int)y[i] - '0' + carry;
+        sum = (int64_t)x[i] - '0' + (int64_t)y[i] - '0' + carry;
         if (sum > 9)
         {
             result = to_string(sum % 10) + result;
