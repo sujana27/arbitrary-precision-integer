@@ -3,118 +3,274 @@
 #include <sstream>
 #include <cmath>
 #include "bigint.hpp"
-// #include "dummy.hpp"
 using namespace std;
 
-int main()
+void doOperations(BigInteger variable1, BigInteger variable2)
 {
+    BigInteger result;
+    bool resultBool;
+
+    cout << "========================================begin===============================================\n\n";
+
+    // << output
+    cout << "===================================== Opreator : [ << ]  ===================================\n";
     try
     {
-        // +operator test cases
-        // big int vs + int
-        BigInteger bg1("2");
-        BigInteger bg1e("2");
-        BigInteger bg2(-52);
-        BigInteger bg3 = bg1 + bg2;
-        cout << bg1 << "\n";
-        cout << bg3 << "\n";
 
-        // big int vs - int
-        // BigInteger bg4("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
-        // BigInteger bg4(-100);
-        // BigInteger bg5(52);
-        BigInteger bg4("-100");
-        BigInteger bg5("-2");
-        // BigInteger bg5();
-        BigInteger bg6 = bg4 + bg5;
-        BigInteger bg66 = bg4 - bg5;
-        BigInteger bg666 = bg5 * bg4;
-        cout << "sum: " << bg6 << "\n";
-        cout << "sub: " << bg66 << "\n";
-        cout << "mul: " << bg666 << "\n";
-
-        // += operator test cases
-        // big int vs - int
-        BigInteger bg7("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
-        BigInteger bg00("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
-        BigInteger bg8(-534549455);
-        bg7 += bg8;
-        cout << bg7 << "\n";
-        cout << "product: " << bg7 * bg00 << "\n";
-
-        // // == operator test cases
-        // // big int vs - int
-        if (bg2 == bg5)
-            cout << bg5 << " is equal to " << bg2 << "\n";
-        if (bg1 != bg2)
-            cout << bg1 << " is not equal to " << bg2 << "\n";
-
-        if (bg2 < bg1)
-            cout << bg1 << " is bigger than " << bg2 << "\n";
-        if (bg1 > bg2)
-            cout << bg2 << " is smaller than " << bg1 << "\n";
-
-        if (bg1 >= bg2)
-            cout << bg1 << " is greater or equal than " << bg2 << "\n";
-
-        if (bg2 <= bg1)
-            cout << bg2 << " is smaller or equal than " << bg1 << "\n";
-        if (bg2 <= bg5)
-            cout << bg2 << " is smaller or equal than " << bg5 << "\n";
-
-        BigInteger a("-11");
-        BigInteger b(22);
-        BigInteger c = a - b;
-
-        cout << a - b << "\n";
-        cout << c << "\n";
-        a -= b;
-        cout << a << "\n";
-        cout << -a << "\n";
-        cout << a << "\n";
-        a += a;
-        cout << a << "\n";
-        BigInteger b2(-22);
-        BigInteger b3(-22);
-        b2 = -b2;
-        BigInteger d = b2 * b3;
-        cout << d << endl;
-        // cout << b2 << endl;
-        b2 *= b3;
-        cout << b2 << endl;
-
-        // BigInteger b34;
-
-        // BigInteger b02 = b2 + b34;
-        // cout << b02 << endl;
-
-        // BigInteger bg6 = bg5 + bg3;
-
-        // cout << bg2 << "\n";
-        // cout << bg5 << "\n";
-        //  cout << bg6 << "\n";
-        //    cout << bg3 << "\n";
-        //    cout << bg4 << "\n";
-        //    cout << bg5 << "\n";
-        //    bg += bg2;
-        //    cout << bg << "\n";
-
-        // if (bg > bg2)
-        //     cout << bg << " is greater than " << bg2 << "\n";
-        // else if (bg < bg2)
-        //     cout << bg << " is smaller than " << bg2 << "\n";
-        // if (bg >= bg2)
-        //     cout << bg << " is greater or equal than " << bg2 << "\n";
-        // else if (bg <= bg2)
-        //     cout << bg << " is smaller or equal than " << bg2 << "\n";
-        // if (bg == bg2)
-        //     cout << bg << " is equal to " << bg2 << "\n";
-        // if (bg != bg2)
-        //     cout << bg << " is not equal to " << bg2 << "\n";
+        cout << " The value of variable2 should be showed in cli is : " << variable1 << "\n\n";
+        cout << " The value of variable2 should be showed in cli is : " << variable2 << "\n\n";
     }
     catch (const invalid_argument &e)
     {
-        cout << "Error: " << e.what() << '\n';
+        cerr << e.what() << '\n';
     }
+    cout << "===========================================================================================\n\n";
+
+    // + addition
+    cout << "===================================== Opreator : [ + ] ======================================\n";
+    try
+    {
+        result = variable1 + variable2;
+        cout << "The additon result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2 + variable1;
+        cout << "The additon result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // - subtraction
+    cout << "===================================== Opreator : [ - ] ======================================\n";
+    try
+    {
+        result = variable1 - variable2;
+        cout << "The subtraction result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2 - variable1;
+        cout << "The subtraction result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // * multiplication
+    cout << "===================================== Opreator : [ * ] ======================================\n";
+    try
+    {
+        result = variable1 * variable2;
+        cout << "The multiplication result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2 * variable1;
+        cout << "The multiplication result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // * multiplication
+
+    // += addition and assign
+    cout << "===================================== Opreator : [ += ] ======================================\n";
+    try
+    {
+        result = variable1;
+        result += variable2;
+        cout << "The addition and assign result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2;
+        result += variable1;
+        cout << "The addition and assign result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // -= subtraction and assign
+    cout << "===================================== Opreator : [ -= ] ======================================\n";
+    try
+    {
+        result = variable1;
+        result -= variable2;
+        cout << "The subtraction and assign result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2;
+        result -= variable1;
+        cout << "The subtraction and assign result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // -= multiplication and assign
+    cout << "===================================== Opreator : [ *= ] ======================================\n";
+    try
+    {
+        result = variable1;
+        result *= variable2;
+        cout << "The multiplication and assign result of " << variable1 << " and " << variable2 << " is " << result << "\n\n";
+
+        result = variable2;
+        result *= variable1;
+        cout << "The multiplication and assign result of " << variable2 << " and " << variable1 << " is " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // > is greater than
+    cout << "===================================== Opreator : [ > ] ======================================\n";
+    try
+    {
+        resultBool = variable1 > variable2;
+        cout << "Is  " << variable1 << " greater than  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 > variable1;
+        cout << "Is  " << variable2 << " greater than  " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // < is smaller than
+    cout << "===================================== Opreator : [ < ] ======================================\n";
+    try
+    {
+        resultBool = variable1 < variable2;
+        cout << "Is  " << variable1 << " smaller than  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 < variable1;
+        cout << "Is  " << variable2 << " smaller than  " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // >= is greater than equal
+    cout << "===================================== Opreator : [ >= ] ======================================\n";
+    try
+    {
+        resultBool = variable1 >= variable2;
+        cout << "Is  " << variable1 << " greater than equal  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 >= variable1;
+        cout << "Is  " << variable2 << " greater than equal  " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // <= is smaller than equal
+    cout << "===================================== Opreator : [ <= ] ======================================\n";
+    try
+    {
+        resultBool = variable1 <= variable2;
+        cout << "Is  " << variable1 << " smaller than equal  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 <= variable1;
+        cout << "Is  " << variable2 << " smaller than equal  " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // == is equal  to
+    cout << "===================================== Opreator : [ == ] ======================================\n";
+    try
+    {
+        resultBool = variable1 == variable2;
+        cout << "Is  " << variable1 << " is equal  to  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 == variable1;
+        cout << "Is  " << variable2 << " is equal  to " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // != is not equal  to
+    cout << "===================================== Opreator : [ != ] ======================================\n";
+    try
+    {
+        resultBool = variable1 != variable2;
+        cout << "Is  " << variable1 << " is not equal  to  " << variable2 << " : " << resultBool << "\n\n";
+
+        resultBool = variable2 != variable1;
+        cout << "Is  " << variable2 << " is not equal  to " << variable1 << " : " << resultBool << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "===========================================================================================\n\n";
+
+    // - val / +/- sign cahnge  / negation
+    cout << "===================================== Opreator : [ -val ] ======================================\n";
+    try
+    {
+        result = -variable1;
+        cout << " The negation of " << variable1 << " is  : " << result << "\n\n";
+
+        result = -variable2;
+        cout << " The negation of " << variable2 << " is  : " << result << "\n\n";
+    }
+    catch (const invalid_argument &e)
+    {
+        cerr << e.what() << '\n';
+    }
+    cout << "========================================endl===============================================\n\n";
+}
+
+int main(int argc, char *argv[])
+{
+    BigInteger bigint1;
+    BigInteger bigint2;
+
+    if (argc < 2)
+    {
+        cout << "Number of command-line arguments: " << argc << " \n You must supply at least 1 input"
+             << "\n\n";
+    }
+    else if (argc < 3)
+    {
+        // int the second one with zero
+    }
+    else
+    {
+        try
+        {
+            // cout << "Argument " << string(argv[1]) << endl;
+            bigint1 = BigInteger(string(argv[1]));
+            bigint2 = BigInteger(string(argv[2]));
+            doOperations(bigint1, bigint2);
+        }
+        catch (const invalid_argument &e)
+        {
+            cerr << e.what() << '\n';
+        }
+    }
+
     return 0;
 }
