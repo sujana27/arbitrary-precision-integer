@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+.DS_Store
+.vscode/settings.json
+bigint2.hpp
+.vscode/tasks.json
+demo
+demo.dSYM/Contents/Info.plist
+dummy.dSYM/Contents/Info.plist
+dummy.dSYM/Contents/Resources/DWARF/dummy
+try.dSYM/Contents/Info.plist
+try.dSYM/Contents/Resources/DWARF/try
