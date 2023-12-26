@@ -3,13 +3,14 @@
 #include <sstream>
 #include <cmath>
 #include "bigint.hpp"
+// #include "dummy.hpp"
 using namespace std;
 
 int main()
 {
     try
     {
-        // + operator test cases
+        // +operator test cases
         // big int vs + int
         BigInteger bg1("2");
         BigInteger bg1e("2");
@@ -19,20 +20,30 @@ int main()
         cout << bg3 << "\n";
 
         // big int vs - int
-        BigInteger bg4("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
-        BigInteger bg5(-52);
+        // BigInteger bg4("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
+        // BigInteger bg4(-100);
+        // BigInteger bg5(52);
+        BigInteger bg4("-100");
+        BigInteger bg5("-2");
+        // BigInteger bg5();
         BigInteger bg6 = bg4 + bg5;
-        cout << bg6 << "\n";
+        BigInteger bg66 = bg4 - bg5;
+        BigInteger bg666 = bg5 * bg4;
+        cout << "sum: " << bg6 << "\n";
+        cout << "sub: " << bg66 << "\n";
+        cout << "mul: " << bg666 << "\n";
 
         // += operator test cases
         // big int vs - int
         BigInteger bg7("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
+        BigInteger bg00("-243584903589043859043894454353454353454354358490358904385904389445435345435345435");
         BigInteger bg8(-534549455);
         bg7 += bg8;
         cout << bg7 << "\n";
+        cout << "product: " << bg7 * bg00 << "\n";
 
-        // == operator test cases
-        // big int vs - int
+        // // == operator test cases
+        // // big int vs - int
         if (bg2 == bg5)
             cout << bg5 << " is equal to " << bg2 << "\n";
         if (bg1 != bg2)
@@ -72,10 +83,10 @@ int main()
         b2 *= b3;
         cout << b2 << endl;
 
-        BigInteger b34;
+        // BigInteger b34;
 
-        BigInteger b02 = b2 + b34;
-        cout << b02 << endl;
+        // BigInteger b02 = b2 + b34;
+        // cout << b02 << endl;
 
         // BigInteger bg6 = bg5 + bg3;
 

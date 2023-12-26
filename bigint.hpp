@@ -143,7 +143,7 @@ BigInteger BigInteger::operator+(const BigInteger &b)
     }
     else
     {
-        if (getNumber() > b.getNumber())
+        if (BigInteger(getNumber()) > BigInteger(b.getNumber()))
         {
             addition.setNumber(makeSub(getNumber(), b.getNumber()));
             addition.sign = getSign();
@@ -166,7 +166,8 @@ BigInteger &BigInteger::operator+=(const BigInteger &b)
     return (*this);
 }
 
-BigInteger BigInteger::operator-() // unary
+// unary
+BigInteger BigInteger::operator-()
 {
     // return (*this) * (-1);
 
@@ -204,11 +205,11 @@ BigInteger BigInteger::operator*(const BigInteger &b)
     {
         if (res[idx] != '0')
         {
-            product.setNumber(res.substr(idx));
+            product.number = res.substr(idx);
             return product;
         }
     }
-    product.setNumber(res);
+    product.number = res;
     return product;
 }
 BigInteger &BigInteger::operator*=(const BigInteger &b)
@@ -367,10 +368,10 @@ string BigInteger::makeSum(string x, string y)
     }
 
     string result = "";
-    int64_t sum, carry = 0;
-    for (int64_t i = x.length() - 1; i >= 0; i--)
+    int sum, carry = 0;
+    for (int i = x.length() - 1; i >= 0; i--)
     {
-        sum = (int64_t)x[i] - '0' + (int64_t)y[i] - '0' + carry;
+        sum = (int)x[i] - '0' + (int)y[i] - '0' + carry;
         if (sum > 9)
         {
             result = to_string(sum % 10) + result;
