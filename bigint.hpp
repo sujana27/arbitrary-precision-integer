@@ -23,11 +23,7 @@ public:
     bool getSign() const;
 
     // bool operator>(const BigInteger &);
-    void operator=(const BigInteger &);
-
-    // bool isGreater(const BigInteger &, const BigInteger &);
-    // bool isEquals(const BigInteger &, const BigInteger &);
-    // bool isSmaller(const BigInteger &, const BigInteger &);
+    // BigInteger operator=(const BigInteger);
 
     BigInteger operator+(const BigInteger &);
     BigInteger operator-(BigInteger);
@@ -36,8 +32,8 @@ public:
     bool operator>(const BigInteger &);
     bool operator<(const BigInteger &);
 
-    bool operator==(const BigInteger &);
-    bool operator!=(const BigInteger &);
+    friend bool operator==(const BigInteger &, const BigInteger &);
+    friend bool operator!=(const BigInteger &, const BigInteger &);
     bool operator>=(const BigInteger &);
     bool operator<=(const BigInteger &);
 
@@ -54,7 +50,7 @@ private:
     bool sign;
     string makeSum(string, string);
     string makeSub(string, string);
-    string addZeros(string, int);
+    string addZeros(string, size_t);
 };
 
 // empty constructor
@@ -66,18 +62,9 @@ BigInteger::BigInteger()
 // string constructor
 BigInteger::BigInteger(const string &s)
 {
-    // if (isdigit(s[0]))
-    // {
-    //     setNumber(s);
-    //     sign = false;
-    // }
-    // else
-    // {
-    //     setNumber(s.substr(1));
-    //     sign = true;
-    // }
     setNumber(s);
 }
+
 // signed int constructor
 BigInteger::BigInteger(const int64_t &num)
 {
@@ -87,17 +74,6 @@ BigInteger::BigInteger(const int64_t &num)
     sStream >> sNum;
 
     setNumber(sNum);
-
-    // if (isdigit(sNum[0]))
-    // {
-    //     setNumber(sNum);
-    //     sign = false;
-    // }
-    // else
-    // {
-    //     setNumber(sNum.substr(1));
-    //     sign = true;
-    // }
 }
 
 void BigInteger::setNumber(const string &s)
@@ -128,10 +104,6 @@ bool BigInteger::getSign() const
 {
     return sign;
 }
-// BigInteger BigInteger::absolute()
-// {
-//     return BigInteger(getNumber());
-// }
 
 BigInteger BigInteger::operator+(const BigInteger &b)
 {
@@ -166,11 +138,9 @@ BigInteger &BigInteger::operator+=(const BigInteger &b)
     return (*this);
 }
 
-// unary
+// negation / unary
 BigInteger BigInteger::operator-()
 {
-    // return (*this) * (-1);
-
     BigInteger negation;
     negation.number = getNumber();
     negation.sign = !getSign();
@@ -188,12 +158,13 @@ BigInteger BigInteger::operator*(const BigInteger &b)
     BigInteger product;
     string multiplicand = getNumber(), multiplier = b.getNumber();
     product.sign = getSign() ^ b.getSign();
-    int64_t n = multiplicand.size(), m = multiplier.size();
+    uint64_t n = multiplicand.size(), m = multiplier.size();
 
     string res(n + m, '0');
-    for (int64_t iidx = n - 1; iidx >= 0; iidx--)
+    ;
+    for (uint64_t iidx = n; iidx-- > 0;)
     {
-        for (int64_t jidx = m - 1; jidx >= 0; jidx--)
+        for (uint64_t jidx = m; jidx-- > 0;)
         {
             int tsum = (res[1 + iidx + jidx] - '0') + (multiplicand[iidx] - '0') * (multiplier[jidx] - '0');
             res[iidx + jidx] += tsum / 10;
@@ -201,7 +172,7 @@ BigInteger BigInteger::operator*(const BigInteger &b)
         }
     }
     // if leading zero ignore them
-    for (int64_t idx = 0; idx < m + n; idx++)
+    for (uint64_t idx = 0; idx < m + n; idx++)
     {
         if (res[idx] != '0')
         {
@@ -224,11 +195,15 @@ BigInteger &BigInteger::operator-=(const BigInteger &b)
     return (*this);
 }
 
-void BigInteger::operator=(const BigInteger &b)
-{
-    setNumber(b.getNumber());
-    sign = b.getSign();
-}
+// BigInteger BigInteger::operator=(const BigInteger b)
+// {
+//     if (this != &b)
+//     {
+//         number = b.getNumber();
+//         sign = b.getSign();
+//     }
+//     return *this;
+// }
 
 ostream &operator<<(ostream &out, const BigInteger &a)
 {
@@ -244,13 +219,13 @@ ostream &operator<<(ostream &out, const BigInteger &a)
     }
 }
 
-bool BigInteger::operator==(const BigInteger &b)
+bool operator==(const BigInteger &a, const BigInteger &b)
 {
-    return getNumber() == b.getNumber() && getSign() == b.getSign();
+    return a.getNumber() == b.getNumber() && a.getSign() == b.getSign();
 }
-bool BigInteger::operator!=(const BigInteger &b)
+bool operator!=(const BigInteger &a, const BigInteger &b)
 {
-    return !((*this) == b);
+    return !(a == b);
 }
 bool BigInteger::operator<(const BigInteger &b)
 {
@@ -303,49 +278,7 @@ bool BigInteger::operator<=(const BigInteger &b)
     return false;
 }
 
-// bool BigInteger::isEquals(const BigInteger &n1, const BigInteger &n2)
-// {
-//     return n1.getNumber() == n2.getNumber() && n1.getSign() == n2.getSign();
-// }
-
-// bool BigInteger::isSmaller(const BigInteger &n1, const BigInteger &n2)
-// {
-//     bool sign1 = n1.getSign();
-//     bool sign2 = n2.getSign();
-
-//     if (sign1 && !sign2) // if n1 is -ve and n2 is +ve
-//         return true;
-
-//     else if (!sign1 && sign2)
-//         return false;
-
-//     else if (!sign1) // both +ve
-//     {
-//         if (n1.getNumber().length() < n2.getNumber().length())
-//             return true;
-//         if (n1.getNumber().length() > n2.getNumber().length())
-//             return false;
-//         return n1.getNumber() < n2.getNumber();
-//     }
-//     else // both -ve
-//     {
-//         if (n1.getNumber().length() > n2.getNumber().length())
-//             return true;
-//         if (n1.getNumber().length() < n2.getNumber().length())
-//             return false;
-//         return n1.getNumber().compare(n2.getNumber()) > 0; // greater with -ve sign is LESS
-//     }
-// }
-
-// bool BigInteger::isGreater(const BigInteger &n1, const BigInteger &n2)
-// {
-//     if (!isEquals(n1, n2) && !isSmaller(n1, n2))
-//         return true;
-
-//     return false;
-// }
-
-string BigInteger::addZeros(string str, int n)
+string BigInteger::addZeros(string str, size_t n)
 {
     while (n != 0)
     {
@@ -356,6 +289,7 @@ string BigInteger::addZeros(string str, int n)
 }
 
 // std::to_string(std::stoi(num1) + std::stoi(num2)) but range error
+// so we had to add the values index by index
 string BigInteger::makeSum(string x, string y)
 {
     if (x.length() > y.length())
@@ -368,10 +302,10 @@ string BigInteger::makeSum(string x, string y)
     }
 
     string result = "";
-    int sum, carry = 0;
-    for (int i = x.length() - 1; i >= 0; i--)
+    uint64_t sum, carry = 0;
+    for (uint64_t idx = x.length(); idx-- > 0;)
     {
-        sum = (int)x[i] - '0' + (int)y[i] - '0' + carry;
+        sum = (uint64_t)x[idx] - '0' + (uint64_t)y[idx] - '0' + carry;
         if (sum > 9)
         {
             result = to_string(sum % 10) + result;
@@ -394,22 +328,24 @@ string BigInteger::makeSum(string x, string y)
 string BigInteger::makeSub(string x, string y)
 {
     string sub = (x.length() > y.length()) ? x : y;
-    int differenceInLength = abs((int)(x.size() - y.size()));
 
-    if (x.size() > y.size())
-        y.insert(0, differenceInLength, '0');
-
-    else
-        x.insert(0, differenceInLength, '0');
-
-    for (int i = x.length() - 1; i >= 0; --i)
+    if (x.length() > y.length())
     {
-        if (x[i] < y[i])
+        y = addZeros(y, x.length() - y.length());
+    }
+    if (x.length() < y.length())
+    {
+        x = addZeros(x, y.length() - x.length());
+    }
+
+    for (uint64_t idx = x.length(); idx-- > 0;)
+    {
+        if (x[idx] < y[idx])
         {
-            x[i] += 10;
-            x[i - 1]--;
+            x[idx] += 10;
+            x[idx - 1]--;
         }
-        sub[i] = ((x[i] - '0') - (y[i] - '0')) + '0';
+        sub[idx] = ((x[idx] - '0') - (y[idx] - '0')) + '0';
     }
 
     // erase leading zeros
