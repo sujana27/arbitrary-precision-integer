@@ -248,20 +248,15 @@ int main(int argc, char *argv[])
     BigInteger bigint1;
     BigInteger bigint2;
 
-    if (argc < 2)
+    if (argc < 3)
     {
-        cout << "Number of command-line arguments: " << argc << " \n You must supply at least 1 input"
+        cout << "Number of command-line arguments: " << argc << " \n You must supply at least 2 input"
              << "\n\n";
-    }
-    else if (argc < 3)
-    {
-        // int the second one with zero
     }
     else
     {
         try
         {
-            // cout << "Argument " << string(argv[1]) << endl;
             bigint1 = BigInteger(string(argv[1]));
             bigint2 = BigInteger(string(argv[2]));
             doOperations(bigint1, bigint2);

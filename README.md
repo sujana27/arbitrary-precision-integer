@@ -38,4 +38,11 @@ The code is written in C++ 20, and can perform the follwing 14 instructions by o
 
 Here `param1` and `param2` are the supplied command line arguments,  currently the code itself only working with the first 2 parameters, rest of them will be ignored.
 
+Additinal exmaple input for CL Arguments are can be given too, here are the samples 
+ - `./demo.o "-32423423" 4324`  => String and Integer combination
+- `./demo.o -32423423 4324`  => Integer and Integer combination
+- `./demo.o 0 4324`  => Both  Integer combination
+- `./demo.o "324329" "4324"`  => Both String combination
+
+
 // Copyright (c) Sujana Saha. All rights reserved. Licensed under the MIT license.
