@@ -49,6 +49,7 @@ Example input:
 -100
 -32432E //invalid and will be skipped
 *5435 //invalid and will be skipped
+ghfl%45#^$#!  // invalid case and will be skipped
 -34320490329402394
 34324903249
 ``` 
@@ -58,7 +59,25 @@ Example input:
 Additinal exmaple input are supplied in the input.txt file, it can handle more or less invalid input like 
 - `*3242` => any special character inside input is a invalid case
 - `343E34` `A3432B` => any alpha-numberic input is a invalid case
-- ` 45 ` => capable of removing whitespace form fornt and rear
 
+
+## Warnings
+The whole code is warning free and has been tested to with `"-Wall",
+                "-Wextra",
+                "-Wconversion",
+                "-Wsign-conversion",
+                "-Wshadow",
+                "-Wpedantic"
+                "-std=c++20"` compiler arguments.
+
+
+# References
+[1] https://github.com/rgroshanrg/bigint/blob/14455a6a8f533865205ed8f0a5e27e6db02cbf53/bigint_function_definitions.h#L87
+
+[2] https://leetcode.com/problems/multiply-strings/solutions/4460228/easy-solution-in-c/
+
+[3] https://leetcode.com/problems/multiply-strings/solutions/1436603/with-addition-and-subtraction-only-old-school-way/
+ 
+[4] https://leetcode.com/problems/multiply-strings/solutions/1563536/c-simple-solution-w-explanation-and-images-school-optimized-multiplication/
 
 // Copyright (c) Sujana Saha. All rights reserved. Licensed under the MIT license.

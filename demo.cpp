@@ -18,10 +18,10 @@ void doOperations(BigInteger variable1, BigInteger variable2)
     try
     {
 
-        cout << " The value of variable2 should be showed in cli is : " << variable1 << "\n\n";
-        cout << " The value of variable2 should be showed in cli is : " << variable2 << "\n\n";
+        cout << " The value of variable1 : " << variable1 << "\n\n";
+        cout << " The value of variable2 : " << variable2 << "\n\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -74,8 +74,6 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         cerr << e.what() << '\n';
     }
     cout << "===========================================================================================\n\n";
-
-    // * multiplication
 
     // += addition and assign
     cout << "===================================== Opreator : [ += ] ======================================\n";
@@ -241,7 +239,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
     {
         cerr << e.what() << '\n';
     }
-    cout << "========================================endl===============================================\n\n\n\n\n\n\n\n\n";
+    cout << "========================================endl===============================================\n";
 }
 
 BigInteger doObjConvert(const string value)
@@ -266,24 +264,13 @@ BigInteger doObjConvert(const string value)
     return bigint;
 }
 
-bool isWhitespace(char c)
-{
-    return isspace(static_cast<unsigned char>(c));
-}
-string removeWhitespace(const string &str)
-{
-    string result = str;
-    result.erase(remove_if(result.begin(), result.end(), isWhitespace), result.end());
-    return result;
-}
-
 int main()
 {
     // initialize with empty/default construector
     BigInteger bigint1;
     BigInteger bigint2;
+    BigInteger temp_obj;
 
-    bool validation = true;
     int64_t intValue;
     string stringValue;
     string line;
@@ -296,31 +283,25 @@ int main()
     int counter = 0;
     while (getline(inputFile, line))
     {
+
         istringstream iss(line);
-        line = removeWhitespace(line);
         // ignore empty lines
         if (line.length() == 0)
             continue;
-
-        // do validation for input whether it's signed number or not
-        for (uint64_t i = 0; i < line.size(); i++)
+        // validating the input with the constructor if there is any special char available in the input
+        try
         {
-            if ((i == 0 && line[i] != '-' && !isdigit(line[i])) || (i != 0 && !isdigit(line[i])))
-            {
-                // if a input is invalid keep trying the next one
-                cout << "Your input is invalid : " << line << "\n\n";
-                cout << "Trying on next number(if any) ... \n\n";
-                validation = false;
-                break;
-            }
+            temp_obj = BigInteger(line);
         }
-        if (!validation)
+        catch (const exception &e)
         {
-            // if not then try next number
-            validation = true;
+            cerr << e.what() << line << "\n";
             continue;
         }
-        else if (iss >> intValue) // input is integer convertible then invoke int constructor
+
+        //  we can essentially don't need this since inputs are coming as a string
+        // however we have used it as per project  requirement, but this is a redundent of the object
+        if (iss >> intValue) // input is integer convertible then invoke signed integer constructor
         {
             if (counter == 0)
                 bigint1 = BigInteger(intValue);
@@ -330,9 +311,9 @@ int main()
         else // everything else considered as string constructor
         {
             if (counter == 0)
-                bigint1 = BigInteger(line);
+                bigint1 = temp_obj;
             else
-                bigint2 = BigInteger(line);
+                bigint2 = temp_obj;
         }
 
         // will consider only 2 inputs as a pair to do the operations
@@ -344,7 +325,7 @@ int main()
             {
                 doOperations(bigint1, bigint2);
             }
-            catch (const std::exception &e)
+            catch (const exception &e)
             {
                 cerr << e.what() << '\n';
             }

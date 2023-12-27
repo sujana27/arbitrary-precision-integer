@@ -19,11 +19,7 @@ public:
     // Constructor that takes a string of digits and converts it to an arbitrary - precision integer.
     BigInteger(const string &);
 
-    BigInteger(const BigInteger &other) : number(other.number), sign(other.sign)
-    {
-        // no operation
-        // just for copy constructor
-    }
+    BigInteger(const BigInteger &);
 
     void setNumber(const string &);
     string getNumber() const;
@@ -48,11 +44,8 @@ public:
     friend ostream &operator<<(ostream &, const BigInteger &);
 
     // Exception to be thrown if trying to access an element out of range.
-    inline static invalid_argument not_a_number = invalid_argument("Not a number!");
+    inline static invalid_argument not_a_number = invalid_argument("Not a valid input: ");
     inline static runtime_error rt_error_unknown = runtime_error("Something went wrong during execution!");
-    inline static runtime_error rt_error_plus = runtime_error("Something went wrong during addition!");
-    inline static runtime_error rt_error_minus = runtime_error("Something went wrong during subtraction!");
-    inline static runtime_error rt_error_product = runtime_error("Something went wrong during multiplication!");
 
 private:
     string number;
@@ -85,14 +78,20 @@ BigInteger::BigInteger(const int64_t &num)
     setNumber(sNum);
 }
 
+BigInteger::BigInteger(const BigInteger &bigint) : number(bigint.number), sign(bigint.sign)
+{
+    // no operation
+    // just for copy constructor
+}
+
 void BigInteger::setNumber(const string &s)
 {
-    // validation has been moved form constructor to input validation
-    // for (uint64_t i = 0; i < s.size(); i++)
-    // {
-    //     if ((i == 0 && s[i] != '-' && !isdigit(s[i])) || (i != 0 && !isdigit(s[i])))
-    //         throw not_a_number;
-    // }
+    // validating here and throws not_a_number exception
+    for (uint64_t i = 0; i < s.size(); i++)
+    {
+        if ((i == 0 && s[i] != '-' && !isdigit(s[i])) || (i != 0 && !isdigit(s[i])))
+            throw not_a_number;
+    }
     if (isdigit(s[0]))
     {
         number = s;
@@ -114,6 +113,10 @@ bool BigInteger::getSign() const
     return sign;
 }
 
+/*--------------------------------------------------------
+| String addition idea has been sourced from this resource
+| https://github.com/rgroshanrg/bigint/blob/14455a6a8f533865205ed8f0a5e27e6db02cbf53/bigint_function_definitions.h#L87
+---------------------------------------------------------*/
 BigInteger BigInteger::operator+(const BigInteger &b)
 {
     BigInteger addition;
@@ -152,7 +155,8 @@ BigInteger BigInteger::operator-()
 {
     BigInteger negation;
     negation.number = getNumber();
-    negation.sign = !getSign();
+    if (negation.getNumber().length() >= 1 && negation.getNumber()[0] != '0')
+        negation.sign = !getSign();
     return negation;
 }
 
@@ -162,6 +166,10 @@ BigInteger BigInteger::operator-(BigInteger b)
     return (*this) + b;
 }
 
+/* -------------------------------------------------------------------------------
+| String multiplication logic has been sourced from here
+| https://leetcode.com/problems/multiply-strings/solutions/4460228/easy-solution-in-c/
+-----------------------------------------------------------------------------------*/
 BigInteger BigInteger::operator*(const BigInteger &b)
 {
     BigInteger product;
@@ -170,7 +178,6 @@ BigInteger BigInteger::operator*(const BigInteger &b)
     uint64_t n = multiplicand.size(), m = multiplier.size();
 
     string res(n + m, '0');
-    ;
     for (uint64_t iidx = n; iidx-- > 0;)
     {
         for (uint64_t jidx = m; jidx-- > 0;)
@@ -181,13 +188,9 @@ BigInteger BigInteger::operator*(const BigInteger &b)
         }
     }
     // if leading zero ignore them
-    for (uint64_t idx = 0; idx < m + n; idx++)
+    if (res.length() > 0 && res[0] == '0')
     {
-        if (res[idx] != '0')
-        {
-            product.number = res.substr(idx);
-            return product;
-        }
+        res = res.substr(1);
     }
     product.number = res;
     return product;
@@ -297,8 +300,13 @@ string BigInteger::addZeros(string str, size_t n)
     return str;
 }
 
+/*------------------------------------------------------------------------
+| Adding string idea has been sourced form here
+| https://leetcode.com/problems/multiply-strings/solutions/1436603/with-addition-and-subtraction-only-old-school-way/
+| https://leetcode.com/problems/multiply-strings/solutions/1563536/c-simple-solution-w-explanation-and-images-school-optimized-multiplication/
 // std::to_string(std::stoi(num1) + std::stoi(num2)) but range error
 // so we had to add the values index by index
+--------------------------------------------------------------------------*/
 string BigInteger::makeSum(string x, string y)
 {
     if (x.length() > y.length())
@@ -334,6 +342,10 @@ string BigInteger::makeSum(string x, string y)
     return result;
 }
 
+/*------------------------------------------------------------------------
+| String based subtraction logic has been sourced form this blogs
+| https://leetcode.com/problems/multiply-strings/solutions/1436603/with-addition-and-subtraction-only-old-school-way/
+--------------------------------------------------------------------------*/
 string BigInteger::makeSub(string x, string y)
 {
     string sub = (x.length() > y.length()) ? x : y;
