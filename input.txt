@@ -1,0 +1,8 @@
+-23
+24
+-100
+-100
+-32432E //invalid and will be skipped
+*5435 //invalid and will be skipped
+-34320490329402394
+34324903249

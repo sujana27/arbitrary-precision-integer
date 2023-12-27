@@ -12,38 +12,47 @@ class BigInteger
 public:
     // Constructor with no argument to create a zero integer.
     BigInteger();
+
     // Constructor that takes a signed 64-bit integer converts it to an arbitrary-precision integer.
     BigInteger(const int64_t &);
+
     // Constructor that takes a string of digits and converts it to an arbitrary - precision integer.
     BigInteger(const string &);
 
+    BigInteger(const BigInteger &other) : number(other.number), sign(other.sign)
+    {
+        // no operation
+        // just for copy constructor
+    }
+
     void setNumber(const string &);
-    // BigInteger absolute();
     string getNumber() const;
     bool getSign() const;
 
-    // bool operator>(const BigInteger &);
-    // BigInteger operator=(const BigInteger);
-
     BigInteger operator+(const BigInteger &);
     BigInteger operator-(BigInteger);
-    BigInteger operator-(); // unary
+    BigInteger operator-(); // sign change
     BigInteger operator*(const BigInteger &);
     bool operator>(const BigInteger &);
     bool operator<(const BigInteger &);
+    BigInteger &operator=(const BigInteger &);
 
-    friend bool operator==(const BigInteger &, const BigInteger &);
-    friend bool operator!=(const BigInteger &, const BigInteger &);
     bool operator>=(const BigInteger &);
     bool operator<=(const BigInteger &);
-
     BigInteger &operator+=(const BigInteger &b);
     BigInteger &operator-=(const BigInteger &b);
     BigInteger &operator*=(const BigInteger &b);
+
+    friend bool operator==(const BigInteger &, const BigInteger &);
+    friend bool operator!=(const BigInteger &, const BigInteger &);
     friend ostream &operator<<(ostream &, const BigInteger &);
 
     // Exception to be thrown if trying to access an element out of range.
     inline static invalid_argument not_a_number = invalid_argument("Not a number!");
+    inline static runtime_error rt_error_unknown = runtime_error("Something went wrong during execution!");
+    inline static runtime_error rt_error_plus = runtime_error("Something went wrong during addition!");
+    inline static runtime_error rt_error_minus = runtime_error("Something went wrong during subtraction!");
+    inline static runtime_error rt_error_product = runtime_error("Something went wrong during multiplication!");
 
 private:
     string number;
@@ -78,12 +87,12 @@ BigInteger::BigInteger(const int64_t &num)
 
 void BigInteger::setNumber(const string &s)
 {
-
-    for (uint64_t i = 0; i < s.size(); i++)
-    {
-        if ((i == 0 && s[i] != '-' && !isdigit(s[i])) || (i != 0 && !isdigit(s[i])))
-            throw not_a_number;
-    }
+    // validation has been moved form constructor to input validation
+    // for (uint64_t i = 0; i < s.size(); i++)
+    // {
+    //     if ((i == 0 && s[i] != '-' && !isdigit(s[i])) || (i != 0 && !isdigit(s[i])))
+    //         throw not_a_number;
+    // }
     if (isdigit(s[0]))
     {
         number = s;
@@ -195,15 +204,15 @@ BigInteger &BigInteger::operator-=(const BigInteger &b)
     return (*this);
 }
 
-// BigInteger BigInteger::operator=(const BigInteger b)
-// {
-//     if (this != &b)
-//     {
-//         number = b.getNumber();
-//         sign = b.getSign();
-//     }
-//     return *this;
-// }
+BigInteger &BigInteger::operator=(const BigInteger &b)
+{
+    if (this != &b)
+    {
+        number = b.getNumber();
+        sign = b.getSign();
+    }
+    return *this;
+}
 
 ostream &operator<<(ostream &out, const BigInteger &a)
 {
