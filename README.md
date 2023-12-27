@@ -1,8 +1,14 @@
+## Student Information
+- Name: Sujana Saha
+- Student Id: 400546546
+- Course: CSE701: Scientific Computing
+- Project: Arbitrary Precision Signed Integer
+
 ## BigInteget / Arbitrary Precision Signed Integer
 
-Big - Integer is a set of machine instuction for handling higer order intergers which doesn't fit in premetive(maximum 2^64) type machine instructions C++ language. This code is capable of handling those higher order arbitrary precisions of integer number.
+Big - Integer is a set of machine instruction for handling higher order integers which doesn't fit in primitive(maximum 2^64) type machine instructions C++ language. This code is capable of handling those higher order arbitrary precisions of integer number.
 
-The code is written in C++ 20, and can perform the follwing 14 instructions by overloading those operaotrs that are available in C++:
+The code is written in C++ 20, and can perform the following 14 instructions by overloading those operators that are available in C++:
 
 |Operator   | Instruction  | Return type  |   Example |
 |---|---|---|---|
@@ -35,10 +41,10 @@ The code is written in C++ 20, and can perform the follwing 14 instructions by o
 1) Open terminal or cmd in the file direcotry ```cd /file/direcotry/```
 2) Compile the code with `g++` or `CLang` like `g++ demo.cpp -o demo.o`
 3) Run `./demo.o` 
-4) In the follwing stage you will see a bunch of 14 different types of instructions output that mentioned in above.
+4) In the following stage you will see a bunch of 14 different types of instructions output that mentioned in above.
 5) program is capable of reading input files form `input.txt` file.
 
-## How to supply input in inout.txt file
+## How to supply input in input.txt file
 Supply input will be read line by line, which means one number at a line. a set of 2 consecutive valid input perform operations **The number of valid inputs must be a even number** Otherwise the code will skip the the last valid input and do not do further operation with one.
 
 Example input:
@@ -56,9 +62,9 @@ ghfl%45#^$#!  // invalid case and will be skipped
 
 
 
-Additinal exmaple input are supplied in the input.txt file, it can handle more or less invalid input like 
+Additional example input are supplied in the input.txt file, it can handle more or less invalid input like 
 - `*3242` => any special character inside input is a invalid case
-- `343E34` `A3432B` => any alpha-numberic input is a invalid case
+- `343E34` `A3432B` => any alpha-numeric input is a invalid case
 
 
 ## Warnings
