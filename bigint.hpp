@@ -242,8 +242,10 @@ BigInteger BigInteger::operator-(BigInteger b)
  * applying the theory of M * N matrix multiplication index by index
  * if there is carry then forward to the previous bit
  * if there is any leading zero in the front remove them before returning them
+ *
  * String multiplication logic has been sourced from here
  * https://leetcode.com/problems/multiply-strings/solutions/4460228/easy-solution-in-c/
+ * https://stackoverflow.com/questions/1218149/arbitrary-precision-arithmetic-explanation
  *
  * @param  left-hand side operand *this implicitly represented
  * @param BigInteger b
@@ -481,6 +483,7 @@ string BigInteger::addZeros(string str, size_t n)
  * Adding string idea has been sourced form here
  * https://leetcode.com/problems/multiply-strings/solutions/1436603/with-addition-and-subtraction-only-old-school-way/
  * https://leetcode.com/problems/multiply-strings/solutions/1563536/c-simple-solution-w-explanation-and-images-school-optimized-multiplication/
+ * https://stackoverflow.com/questions/1218149/arbitrary-precision-arithmetic-explanation
  * @param string x
  * @param string y
  * @return string
@@ -525,6 +528,7 @@ string BigInteger::makeSum(string x, string y)
  * finally it also discard the leading zero, if all of them are zero the keep the last zero only
  * String based subtraction logic has been sourced form this blogs
  * https://leetcode.com/problems/multiply-strings/solutions/1436603/with-addition-and-subtraction-only-old-school-way/
+ * https://stackoverflow.com/questions/1218149/arbitrary-precision-arithmetic-explanation
  *
  * @param string x
  * @param string y
