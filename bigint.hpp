@@ -20,24 +20,23 @@ using namespace std;
 class BigInteger
 {
 public:
-    // Constructor with no argument to create a zero integer.
-    BigInteger();
+    BigInteger(); // Constructor with no argument to create a zero integer.
 
-    // Constructor that takes a signed 64-bit integer converts it to an arbitrary-precision integer.
-    BigInteger(const int64_t &);
+    BigInteger(const int64_t &); // Constructor that takes a signed 64-bit integer converts it to an arbitrary-precision integer.
 
-    // Constructor that takes a string of digits and converts it to an arbitrary - precision integer.
-    BigInteger(const string &);
+    BigInteger(const string &); // Constructor that takes a string of digits and converts it to an arbitrary - precision integer.
 
     BigInteger(const BigInteger &);
 
+    // setters and getters
     void setNumber(const string &);
     string getNumber() const;
     bool getSign() const;
 
+    // operator overloaded
     BigInteger operator+(const BigInteger &);
-    BigInteger operator-(BigInteger);
-    BigInteger operator-(); // sign change
+    BigInteger operator-(BigInteger); // subtraction
+    BigInteger operator-();           // negation
     BigInteger operator*(const BigInteger &);
     bool operator>(const BigInteger &);
     bool operator<(const BigInteger &);
@@ -49,14 +48,9 @@ public:
     BigInteger &operator-=(const BigInteger &);
     BigInteger &operator*=(const BigInteger &);
 
-    // friend BigInteger &operator+=(BigInteger &, const BigInteger &);
     friend bool operator==(const BigInteger &, const BigInteger &);
     friend bool operator!=(const BigInteger &, const BigInteger &);
     friend ostream &operator<<(ostream &, const BigInteger &);
-
-    // Exception to be thrown if trying to access an element out of range.
-    inline static invalid_argument not_a_number = invalid_argument("Not a valid input: ");
-    inline static runtime_error rt_error_unknown = runtime_error("Something went wrong during execution!");
 
 private:
     string number;
@@ -89,8 +83,8 @@ BigInteger::BigInteger(const string &str)
 
 /**
  * @brief Construct a new Big Integer:: Big Integer object
- *
- * @param num
+ * can accept maximum 64 bit singed integer
+ * @param int64_t num
  * signed int constructor
  */
 BigInteger::BigInteger(const int64_t &num)
@@ -125,7 +119,8 @@ void BigInteger::setNumber(const string &str)
     for (uint64_t i = 0; i < str.size(); i++)
     {
         if ((i == 0 && str[i] != '-' && !isdigit(str[i])) || (i != 0 && !isdigit(str[i])))
-            throw not_a_number;
+            // throw not_a_number;
+            throw invalid_argument("Not a valid input: ");
     }
     if (isdigit(str[0]))
     {

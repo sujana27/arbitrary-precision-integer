@@ -54,7 +54,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         result = variable2 + variable1;
         cout << "The addition result of " << variable2 << " and " << variable1 << " is " << result << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -70,7 +70,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         result = variable2 - variable1;
         cout << "The subtraction result of " << variable2 << " and " << variable1 << " is " << result << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -86,7 +86,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         result = variable2 * variable1;
         cout << "The multiplication result of " << variable2 << " and " << variable1 << " is " << result << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -96,12 +96,11 @@ void doOperations(BigInteger variable1, BigInteger variable2)
     cout << "===================================== Operator : [ += ] ======================================\n";
     try
     {
-        // result = variable1;
         cout << "The addition and assign result of " << variable1 << " and " << variable2 << " is ";
         variable1 += variable2;
         cout << variable1 << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -115,7 +114,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         variable1 -= variable2;
         cout << variable1 << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -130,7 +129,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         variable1 *= variable2;
         cout << variable1 << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -146,7 +145,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 > variable1;
         cout << "Is  " << variable2 << " greater than  " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -162,7 +161,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 < variable1;
         cout << "Is  " << variable2 << " smaller than  " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -178,7 +177,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 >= variable1;
         cout << "Is  " << variable2 << " greater than equal  " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -194,7 +193,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 <= variable1;
         cout << "Is  " << variable2 << " smaller than equal  " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -210,7 +209,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 == variable1;
         cout << "Is  " << variable2 << " is equal  to " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -226,7 +225,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         resultBool = variable2 != variable1;
         cout << "Is  " << variable2 << " is not equal  to " << variable1 << " : " << resultBool << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
@@ -242,7 +241,7 @@ void doOperations(BigInteger variable1, BigInteger variable2)
         result = -variable2;
         cout << " The negation of " << variable2 << " is  : " << result << "\n";
     }
-    catch (const runtime_error &e)
+    catch (const exception &e)
     {
         cerr << e.what() << '\n';
     }
